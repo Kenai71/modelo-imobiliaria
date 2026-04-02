@@ -1,18 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion"; // <-- ADICIONAMOS O 'Variants' AQUI
 import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
-// Importação com caminho relativo garantindo que o TypeScript não reclame
 import Navbar from "../components/Navbar"; 
 
-// Variantes de animação elegantes para o Framer Motion
-const fadeInUp = {
+// Agora dizemos explicitamente ao TypeScript que isso é um ": Variants"
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
 };
