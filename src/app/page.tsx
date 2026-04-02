@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
-// Usando caminho relativo para evitar erro de alias "@/" no TypeScript
+// Importação com caminho relativo garantindo que o TypeScript não reclame
 import Navbar from "../components/Navbar"; 
 
-// Variantes de animação tipadas implicitamente para evitar erros de TS
+// Variantes de animação elegantes para o Framer Motion
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -30,6 +30,7 @@ export default function Home() {
           fill
           quality={100}
           priority
+          sizes="100vw"
           className="object-cover scale-105"
         />
         <div className="absolute inset-0 bg-[#002F6C]/60" />
@@ -79,7 +80,13 @@ export default function Home() {
           {/* Card 1 */}
           <motion.div variants={fadeInUp} className="group cursor-pointer">
             <div className="relative h-80 overflow-hidden mb-6">
-              <Image src="/img/image2.jpg" alt="Residencial Blanc" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <Image 
+                src="/img/image2.jpg" 
+                alt="Residencial Blanc" 
+                fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
             </div>
             <h3 className="text-2xl font-playfair text-[#002F6C] mb-2">Residencial Blanc</h3>
@@ -89,7 +96,13 @@ export default function Home() {
           {/* Card 2 */}
           <motion.div variants={fadeInUp} className="group cursor-pointer">
             <div className="relative h-80 overflow-hidden mb-6">
-              <Image src="/img/image3.jpg" alt="Villa Serena" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <Image 
+                src="/img/image3.jpg" 
+                alt="Villa Serena" 
+                fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
             </div>
             <h3 className="text-2xl font-playfair text-[#002F6C] mb-2">Villa Serena</h3>
@@ -99,7 +112,13 @@ export default function Home() {
           {/* Card 3 */}
           <motion.div variants={fadeInUp} className="group cursor-pointer">
             <div className="relative h-80 overflow-hidden mb-6">
-              <Image src="/img/image4.jpg" alt="Corporate Tower" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+              <Image 
+                src="/img/image4.jpg" 
+                alt="Corporate Tower" 
+                fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
             </div>
             <h3 className="text-2xl font-playfair text-[#002F6C] mb-2">Corporate Tower</h3>
@@ -136,7 +155,13 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative h-[600px]"
           >
-            <Image src="/img/image1.png" alt="Sobre a Nordelia" fill className="object-cover rounded-sm shadow-2xl" />
+            <Image 
+              src="/img/image1.png" 
+              alt="Sobre a Nordelia" 
+              fill 
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-sm shadow-2xl" 
+            />
             <div className="absolute -bottom-8 -left-8 bg-[#002F6C] p-10 text-white shadow-xl hidden md:block">
               <span className="block text-5xl font-playfair font-bold mb-2">10+</span>
               <span className="text-sm tracking-widest uppercase text-[#C0C0C0]">Anos de Excelência</span>
