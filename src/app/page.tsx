@@ -46,7 +46,10 @@ export default function Home() {
               Não vendemos espaços. Criamos coleções de arquitetura viva, reservadas para os que exigem a excelência.
             </p>
 
-            <MagneticButton className="px-10 py-5 bg-zinc-950 text-white rounded-full text-sm font-medium hover:scale-[1.02] transition-transform duration-300">
+            <MagneticButton 
+              onClick={() => document.getElementById('imoveis')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-10 py-5 bg-zinc-950 text-white rounded-full text-sm font-medium hover:scale-[1.02] transition-transform duration-300"
+            >
               <div className="flex items-center gap-3">
                 <span className="text-white">Explorar Propriedades</span>
                 <ArrowRight size={16} className="text-white" />
