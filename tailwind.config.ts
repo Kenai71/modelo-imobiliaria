@@ -7,15 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        nordelia: {
-          blue: "#002F6C",
-          silver: "#C0C0C0",
-          white: "#FFFFFF",
-        },
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };

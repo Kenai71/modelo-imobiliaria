@@ -1,273 +1,240 @@
 "use client";
 
 import Image from "next/image";
-import { motion, Variants } from "framer-motion"; // <-- ADICIONAMOS O 'Variants' AQUI
-import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
-import Navbar from "../components/Navbar"; 
-
-// Agora dizemos explicitamente ao TypeScript que isso é um ": Variants"
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-};
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import Navbar from "../components/Navbar";
+import PropertyGrid from "../components/PropertyGrid";
+import MagneticButton from "../components/MagneticButton";
+import { useRef } from "react";
 
 export default function Home() {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
   return (
-    <main className="relative bg-[#FFFFFF]">
+    <main className="bg-zinc-50 min-h-screen">
       <Navbar />
 
-      {/* ================= HERO SECTION ================= */}
-      <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <Image
-          src="/img/image1.png"
-          alt="Imóvel de Luxo Nordelia"
-          fill
-          quality={100}
-          priority
-          sizes="100vw"
-          className="object-cover scale-105"
-        />
-        <div className="absolute inset-0 bg-[#002F6C]/60" />
-        
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="relative z-10 text-center max-w-4xl px-6 pt-20"
-        >
-          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-playfair font-bold text-white mb-6 drop-shadow-md">
-            Elevando o seu <br/> Estilo de Vida
-          </motion.h1>
-          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-[#C0C0C0] font-light mb-10 max-w-2xl mx-auto">
-            Imóveis exclusivos em localizações privilegiadas. Encontre a sofisticação e o conforto que você merece.
-          </motion.p>
-          <motion.a 
-            variants={fadeInUp}
-            href="#imoveis" 
-            className="inline-flex items-center gap-2 bg-[#FFFFFF] text-[#002F6C] px-8 py-4 uppercase tracking-widest text-sm font-semibold hover:bg-[#C0C0C0] hover:text-white transition-all duration-300"
+      {/* ================= HERO SECTION (Asymmetric Split) ================= */}
+      <section 
+        ref={heroRef}
+        id="inicio" 
+        className="relative min-h-[100dvh] flex flex-col md:flex-row overflow-hidden max-w-[1600px] mx-auto bg-zinc-50"
+      >
+        {/* Left: Text Content */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-16 pt-32 pb-16 z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            Explorar Imóveis <ArrowRight size={18} />
-          </motion.a>
-        </motion.div>
-      </section>
+            <span className="inline-block text-xs font-mono tracking-widest uppercase text-zinc-500 mb-8">
+              A Nova Perspectiva de Morar
+            </span>
+            <h1 className="text-5xl lg:text-7xl xl:text-8xl font-light tracking-tighter leading-[0.9] text-zinc-950 mb-10">
+              O Padrão <br />
+              <span className="italic font-normal text-zinc-400">Absoluto.</span>
+            </h1>
+            <p className="text-zinc-600 font-light text-lg md:text-xl leading-relaxed max-w-md mb-12">
+              Não vendemos espaços. Criamos coleções de arquitetura viva, reservadas para os que exigem a excelência.
+            </p>
 
-      {/* ================= IMÓVEIS EM DESTAQUE ================= */}
-      <section id="imoveis" className="py-32 px-6 max-w-7xl mx-auto">
-        <motion.div 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp} 
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-playfair text-[#002F6C] font-bold mb-4">Seleção Exclusiva</h2>
-          <div className="w-20 h-1 bg-[#C0C0C0] mx-auto"></div>
-        </motion.div>
-
-        <motion.div 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer} 
-          className="grid md:grid-cols-3 gap-10"
-        >
-          {/* Card 1 */}
-          <motion.div variants={fadeInUp} className="group cursor-pointer">
-            <div className="relative h-80 overflow-hidden mb-6">
-              <Image 
-                src="/img/image2.jpg" 
-                alt="Residencial Blanc" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110" 
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-            </div>
-            <h3 className="text-2xl font-playfair text-[#002F6C] mb-2">Residencial Blanc</h3>
-            <p className="text-[#C0C0C0] font-medium">Apartamento • Alto Padrão</p>
+            <MagneticButton className="px-10 py-5 bg-zinc-950 text-white rounded-full text-sm font-medium hover:scale-[1.02] transition-transform duration-300">
+              <div className="flex items-center gap-3">
+                <span className="text-white">Explorar Propriedades</span>
+                <ArrowRight size={16} className="text-white" />
+              </div>
+            </MagneticButton>
           </motion.div>
+        </div>
 
-          {/* Card 2 */}
-          <motion.div variants={fadeInUp} className="group cursor-pointer">
-            <div className="relative h-80 overflow-hidden mb-6">
-              <Image 
-                src="/img/image3.jpg" 
-                alt="Villa Serena" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110" 
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-            </div>
-            <h3 className="text-2xl font-playfair text-[#002F6C] mb-2">Villa Serena</h3>
-            <p className="text-[#C0C0C0] font-medium">Casa em Condomínio</p>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div variants={fadeInUp} className="group cursor-pointer">
-            <div className="relative h-80 overflow-hidden mb-6">
-              <Image 
-                src="/img/image4.jpg" 
-                alt="Corporate Tower" 
-                fill 
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110" 
-              />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-            </div>
-            <h3 className="text-2xl font-playfair text-[#002F6C] mb-2">Corporate Tower</h3>
-            <p className="text-[#C0C0C0] font-medium">Sala Comercial • Premium</p>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ================= SOBRE A NORDELIA ================= */}
-      <section id="sobre" className="bg-[#f9f9f9] py-32">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+        {/* Right: Immersive Media */}
+        <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-full overflow-hidden p-4 md:p-8">
           <motion.div 
-            initial="hidden" 
-            whileInView="visible" 
-            viewport={{ once: true }} 
-            variants={fadeInUp}
+            style={{ y: heroY, opacity: heroOpacity }}
+            className="w-full h-full relative rounded-[2rem] md:rounded-[3rem] overflow-hidden"
           >
-            <h2 className="text-sm text-[#C0C0C0] font-bold tracking-[0.2em] uppercase mb-4">Sobre a Nordelia</h2>
-            <h3 className="text-4xl md:text-5xl font-playfair text-[#002F6C] font-bold mb-8 leading-tight">
-              Tradição e Inovação em cada detalhe.
+           <Image
+              src="/img/image1.png"
+              alt="Nordelia Arquitetura"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover scale-105"
+            />
+            {/* Liquid Glass Edge Refraction */}
+            <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] border border-white/20 rounded-[2rem] md:rounded-[3rem] pointer-events-none" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= IMÓVEIS (Property Grid Bento) ================= */}
+      <section id="imoveis" className="py-32 px-6 md:px-12 max-w-[1400px] mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.8 }}
+          className="mb-20 flex flex-col md:flex-row items-start md:items-end justify-between gap-8"
+        >
+          <div>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tighter text-zinc-950 mb-4">
+              Coleção Privada
+            </h2>
+            <p className="text-zinc-500 font-light max-w-sm">
+              Propriedades rigorosamente auditadas, disponíveis por tempo limitado para clientes seletos.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Componente que Gerencia o Grid e o Layout Modal Expandido */}
+        <PropertyGrid />
+      </section>
+
+      {/* ================= SOBRE A NORDELIA (Asymmetric Spacing) ================= */}
+      <section id="sobre" className="border-t border-zinc-200/50 bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-32 lg:py-48 grid md:grid-cols-2 gap-20 items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest mb-6 block">
+              Manifesto Nordelia
+            </span>
+            <h3 className="text-4xl md:text-6xl font-light tracking-tighter leading-[1.1] text-zinc-950 mb-10">
+              Menos ruído. <br/> Maior <span className="italic text-zinc-400">precisão.</span>
             </h3>
-            <p className="text-lg text-slate-600 leading-relaxed mb-6 font-light">
-              A Nordelia Imóveis nasce com a missão de transformar a experiência de quem busca um novo lar ou um ambiente de trabalho. Com mais de dez anos no mercado, unimos tradição e inovação, oferecendo imóveis cuidadosamente selecionados, em localizações privilegiadas.
-            </p>
-            <p className="text-lg text-slate-600 leading-relaxed font-light">
-              Na Nordelia, cada projeto é pensado para refletir o seu estilo de vida, com elegância, transparência e um atendimento personalizado, do primeiro contato até a entrega das chaves.
-            </p>
+            <div className="space-y-6 text-zinc-600 font-light leading-relaxed max-w-[50ch]">
+              <p>
+                O mercado tradicional foca no volume. Nós focamos na singularidade. Cada projeto adicionado ao nosso portfólio passa por uma rigorosa análise arquitetônica, de vizinhança e valoração.
+              </p>
+              <p>
+                Não agimos apenas como corretores, mas como curadores de estilo de vida, mapeando a junção exata entre a vida contemporânea e o luxo intrínseco.
+              </p>
+            </div>
+            
+            <div className="mt-12 flex gap-12">
+              <div>
+                <p className="text-4xl font-light text-zinc-950">14</p>
+                <p className="text-xs font-mono text-zinc-400 mt-2 uppercase tracking-wide">Anos de Mercado</p>
+              </div>
+              <div>
+                 <p className="text-4xl font-light text-zinc-950">1B+</p>
+                 <p className="text-xs font-mono text-zinc-400 mt-2 uppercase tracking-wide">Valor Transacionado</p>
+              </div>
+            </div>
           </motion.div>
           
           <motion.div 
-            initial={{ opacity: 0, x: 50 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.8 }}
-            className="relative h-[600px]"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full aspect-[4/5] relative bg-zinc-100 rounded-[2.5rem] overflow-hidden"
           >
             <Image 
               src="/img/image1.png" 
               alt="Sobre a Nordelia" 
               fill 
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover rounded-sm shadow-2xl" 
+              className="object-cover filter grayscale hover:grayscale-0 transition-all duration-1000" 
             />
-            <div className="absolute -bottom-8 -left-8 bg-[#002F6C] p-10 text-white shadow-xl hidden md:block">
-              <span className="block text-5xl font-playfair font-bold mb-2">10+</span>
-              <span className="text-sm tracking-widest uppercase text-[#C0C0C0]">Anos de Excelência</span>
-            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ================= CONTATO ESTILIZADO ================= */}
-      <section id="contato" className="py-32 bg-[#002F6C] text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial="hidden" 
-            whileInView="visible" 
-            viewport={{ once: true }} 
-            variants={fadeInUp} 
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-playfair font-bold mb-4">Inicie sua Jornada</h2>
-            <p className="text-[#C0C0C0] font-light max-w-2xl mx-auto text-lg">
-              Fale com um de nossos consultores exclusivos e descubra o imóvel perfeito para o seu momento de vida.
-            </p>
-          </motion.div>
+      {/* ================= CONTATO (Minimalist Focus Form) ================= */}
+      <section id="contato" className="bg-zinc-950 text-white py-32 rounded-t-[3rem] -mt-10 relative z-20">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-20">
+          
+          {/* Informação */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <h2 className="text-5xl font-light tracking-tighter mb-6">Iniciar Diálogo</h2>
+              <p className="text-zinc-400 font-light max-w-sm mb-16 text-lg">
+                Se você busca uma experiência excepcional, nossa equipe está pronta para um atendimento reservado.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-5 gap-12 bg-white/5 backdrop-blur-sm p-8 md:p-12 border border-[#C0C0C0]/20 rounded-sm">
-            
-            {/* Info de Contato */}
-            <motion.div 
-              initial="hidden" 
-              whileInView="visible" 
-              viewport={{ once: true }} 
-              variants={staggerContainer} 
-              className="md:col-span-2 space-y-10"
-            >
-              <motion.div variants={fadeInUp} className="flex items-center gap-6">
-                <div className="bg-[#C0C0C0] text-[#002F6C] p-4 rounded-full"><MapPin size={24} /></div>
-                <div>
-                  <h4 className="font-bold tracking-wider text-sm uppercase mb-1">Visite-nos</h4>
-                  <p className="text-[#C0C0C0] font-light">Av. das Nações Unidas, 1500<br/>São Paulo - SP</p>
-                </div>
-              </motion.div>
-              <motion.div variants={fadeInUp} className="flex items-center gap-6">
-                <div className="bg-[#C0C0C0] text-[#002F6C] p-4 rounded-full"><Phone size={24} /></div>
-                <div>
-                  <h4 className="font-bold tracking-wider text-sm uppercase mb-1">Ligue</h4>
-                  <p className="text-[#C0C0C0] font-light">+55 (11) 4000-0000</p>
-                </div>
-              </motion.div>
-              <motion.div variants={fadeInUp} className="flex items-center gap-6">
-                <div className="bg-[#C0C0C0] text-[#002F6C] p-4 rounded-full"><Mail size={24} /></div>
-                <div>
-                  <h4 className="font-bold tracking-wider text-sm uppercase mb-1">Escreva</h4>
-                  <p className="text-[#C0C0C0] font-light">contato@nordelia.com.br</p>
-                </div>
-              </motion.div>
-            </motion.div>
+            <div className="space-y-8 font-light text-zinc-300">
+              <div className="flex gap-4 items-center">
+                <MapPin className="text-zinc-500" strokeWidth={1.2} />
+                <p>Av. das Nações Unidas, 1500 — São Paulo, SP</p>
+              </div>
+              <div className="flex gap-4 items-center">
+                 <Phone className="text-zinc-500" strokeWidth={1.2} />
+                 <p>+55 (11) 4000-0000</p>
+              </div>
+              <div className="flex gap-4 items-center">
+                 <Mail className="text-zinc-500" strokeWidth={1.2} />
+                 <p>concierge@nordelia.com.br</p>
+              </div>
+            </div>
+          </div>
 
-            {/* Formulário */}
-            <motion.form 
-              initial="hidden" 
-              whileInView="visible" 
-              viewport={{ once: true }} 
-              variants={fadeInUp} 
-              className="md:col-span-3 space-y-6"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="grid md:grid-cols-2 gap-6">
+          {/* Form */}
+          <form className="flex flex-col space-y-10" onSubmit={e => e.preventDefault()}>
+            <div className="grid md:grid-cols-2 gap-10">
+              <div className="relative border-b border-zinc-800">
                 <input 
                   type="text" 
-                  placeholder="Nome Completo" 
-                  className="w-full bg-transparent border-b border-[#C0C0C0]/40 py-4 text-white placeholder:text-[#C0C0C0]/60 focus:outline-none focus:border-[#C0C0C0] transition-colors font-light" 
-                  required 
+                  placeholder=" " 
+                  className="peer w-full bg-transparent py-4 text-white focus:outline-none focus:border-white transition-colors"
+                  required
                 />
+                <label className="absolute left-0 top-4 text-zinc-500 text-sm peer-focus:-top-4 peer-focus:text-white transition-all cursor-text peer-valid:-top-4">
+                  Nome Completo
+                </label>
+              </div>
+              <div className="relative border-b border-zinc-800">
                 <input 
                   type="email" 
-                  placeholder="E-mail" 
-                  className="w-full bg-transparent border-b border-[#C0C0C0]/40 py-4 text-white placeholder:text-[#C0C0C0]/60 focus:outline-none focus:border-[#C0C0C0] transition-colors font-light" 
-                  required 
+                  placeholder=" " 
+                  className="peer w-full bg-transparent py-4 text-white focus:outline-none focus:border-white transition-colors"
+                  required
                 />
+                <label className="absolute left-0 top-4 text-zinc-500 text-sm peer-focus:-top-4 peer-focus:text-white transition-all cursor-text peer-valid:-top-4">
+                  E-mail
+                </label>
               </div>
-              <input 
-                type="tel" 
-                placeholder="Telefone" 
-                className="w-full bg-transparent border-b border-[#C0C0C0]/40 py-4 text-white placeholder:text-[#C0C0C0]/60 focus:outline-none focus:border-[#C0C0C0] transition-colors font-light" 
-              />
+            </div>
+            
+            <div className="relative border-b border-zinc-800">
               <textarea 
-                rows={4} 
-                placeholder="Como podemos ajudar?" 
-                className="w-full bg-transparent border-b border-[#C0C0C0]/40 py-4 text-white placeholder:text-[#C0C0C0]/60 focus:outline-none focus:border-[#C0C0C0] transition-colors font-light resize-none" 
+                rows={1}
+                placeholder=" "
+                className="peer w-full bg-transparent py-4 text-white resize-none focus:outline-none focus:border-white transition-colors"
                 required
-              ></textarea>
-              
-              <button 
-                type="submit" 
-                className="bg-[#C0C0C0] text-[#002F6C] px-10 py-4 font-bold tracking-widest uppercase text-sm hover:bg-white transition-colors duration-300 w-full md:w-auto"
-              >
-                Enviar Mensagem
-              </button>
-            </motion.form>
-          </div>
+              />
+              <label className="absolute left-0 top-4 text-zinc-500 text-sm peer-focus:-top-4 peer-focus:text-white transition-all cursor-text peer-valid:-top-4">
+                Em que podemos ajudar?
+              </label>
+            </div>
+
+            <div className="flex justify-end pt-8">
+               <button type="submit" className="px-10 py-5 bg-white text-zinc-950 rounded-full font-medium hover:bg-zinc-200 transition-colors duration-300">
+                 Enviar Solicitação
+               </button>
+            </div>
+          </form>
+
+        </div>
+
+        {/* FOOTER INTEGRAD0 */}
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 mt-32 pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center text-xs font-mono tracking-widest text-zinc-500 uppercase">
+           <p>&copy; {new Date().getFullYear()} Nordelia. Todos os direitos reservados.</p>
+           <p className="mt-4 md:mt-0">Desenvolvido com excelência</p>
         </div>
       </section>
-
-      {/* ================= FOOTER ================= */}
-      <footer className="bg-[#001f47] text-[#C0C0C0] py-8 text-center text-sm font-light">
-        <p>&copy; {new Date().getFullYear()} Nordelia Imóveis. Todos os direitos reservados.</p>
-      </footer>
     </main>
   );
 }
