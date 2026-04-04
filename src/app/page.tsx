@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 import Navbar from "../components/Navbar";
 import PropertyGrid from "../components/PropertyGrid";
 import MagneticButton from "../components/MagneticButton";
@@ -181,51 +181,65 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Form */}
-          <form className="flex flex-col space-y-10" onSubmit={e => e.preventDefault()}>
-            <div className="grid md:grid-cols-2 gap-10">
-              <div className="relative border-b border-zinc-800">
-                <input 
-                  type="text" 
-                  placeholder=" " 
-                  className="peer w-full bg-transparent py-4 text-white focus:outline-none focus:border-white transition-colors"
-                  required
-                />
-                <label className="absolute left-0 top-4 text-zinc-500 text-sm peer-focus:-top-4 peer-focus:text-white transition-all cursor-text peer-valid:-top-4">
-                  Nome Completo
-                </label>
-              </div>
-              <div className="relative border-b border-zinc-800">
-                <input 
-                  type="email" 
-                  placeholder=" " 
-                  className="peer w-full bg-transparent py-4 text-white focus:outline-none focus:border-white transition-colors"
-                  required
-                />
-                <label className="absolute left-0 top-4 text-zinc-500 text-sm peer-focus:-top-4 peer-focus:text-white transition-all cursor-text peer-valid:-top-4">
-                  E-mail
-                </label>
-              </div>
-            </div>
+          {/* Corretores */}
+          <div className="flex flex-col space-y-10">
+            <h3 className="text-2xl font-light tracking-tight text-white mb-2 border-b border-zinc-800 pb-4">
+              Atendimento Exclusivo
+            </h3>
             
-            <div className="relative border-b border-zinc-800">
-              <textarea 
-                rows={1}
-                placeholder=" "
-                className="peer w-full bg-transparent py-4 text-white resize-none focus:outline-none focus:border-white transition-colors"
-                required
-              />
-              <label className="absolute left-0 top-4 text-zinc-500 text-sm peer-focus:-top-4 peer-focus:text-white transition-all cursor-text peer-valid:-top-4">
-                Em que podemos ajudar?
-              </label>
-            </div>
+            <div className="flex flex-col space-y-4">
+              {/* Corretor 1 */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 hover:border-zinc-700 transition-colors">
+                <div>
+                  <p className="text-xl font-light text-white mb-1">Helena Vanz</p>
+                  <p className="text-sm text-zinc-500 font-mono tracking-wide uppercase">Diretora de Luxo</p>
+                </div>
+                <a 
+                  href="https://wa.me/5511999999999" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-zinc-100 text-zinc-950 rounded-full text-sm font-medium hover:bg-white hover:scale-105 transition-all w-full sm:w-auto"
+                >
+                  <MessageCircle size={16} />
+                  WhatsApp
+                </a>
+              </div>
 
-            <div className="flex justify-end pt-8">
-               <button type="submit" className="px-10 py-5 bg-white text-zinc-950 rounded-full font-medium hover:bg-zinc-200 transition-colors duration-300">
-                 Enviar Solicitação
-               </button>
+              {/* Corretor 2 */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 hover:border-zinc-700 transition-colors">
+                <div>
+                  <p className="text-xl font-light text-white mb-1">Arthur De Lazzari</p>
+                  <p className="text-sm text-zinc-500 font-mono tracking-wide uppercase">Head Corporate</p>
+                </div>
+                <a 
+                  href="https://wa.me/5511999999998" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-zinc-100 text-zinc-950 rounded-full text-sm font-medium hover:bg-white hover:scale-105 transition-all w-full sm:w-auto"
+                >
+                  <MessageCircle size={16} />
+                  WhatsApp
+                </a>
+              </div>
+
+              {/* Corretor 3 */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800/50 hover:border-zinc-700 transition-colors">
+                <div>
+                  <p className="text-xl font-light text-white mb-1">Valentina Rossi</p>
+                  <p className="text-sm text-zinc-500 font-mono tracking-wide uppercase">Curadora de Acervo</p>
+                </div>
+                <a 
+                  href="https://wa.me/5511999999997" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-zinc-100 text-zinc-950 rounded-full text-sm font-medium hover:bg-white hover:scale-105 transition-all w-full sm:w-auto"
+                >
+                  <MessageCircle size={16} />
+                  WhatsApp
+                </a>
+              </div>
             </div>
-          </form>
+          </div>
 
         </div>
 
