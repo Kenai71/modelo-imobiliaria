@@ -20,7 +20,7 @@ interface Property {
 const properties: Property[] = [
   {
     id: "p1",
-    title: "Corporate Tower",
+    title: "Residencial Blanc",
     type: "Apartamento • Alto Padrão",
     area: 120,
     bedrooms: 3,
@@ -35,12 +35,12 @@ const properties: Property[] = [
     area: 450,
     bedrooms: 5,
     price: "R$ 12.800.000",
-    image: "/img/image3.jpg",
+    image: "/img/image3.jpeg",
     description: "Casa espetacular com arquitetura orgânica e grandes vãos de vidro. Jardim privativo projetado por paisagistas renomados, área de piscina com borda infinita e sala de estar com pé direito duplo."
   },
   {
     id: "p3",
-    title: "Residencial Blanc",
+    title: "Corporate Tower",
     type: "Sala Comercial • Premium",
     area: 85,
     bedrooms: 0,
@@ -77,16 +77,6 @@ const properties: Property[] = [
     price: "R$ 6.200.000",
     image: "/img/image3.jpg",
     description: "O requinte francês reeditado para o Brasil. Arquitetura neoclássica que esconde uma casa altamente tecnológica por dentro. Conta com adega subterrânea, elevador e garagem subterrânea."
-  },
-  {
-    id: "p7",
-    title: "Cobertura Duplex",
-    type: "Cobertura Duplex",
-    area: 320,
-    bedrooms: 4,
-    price: "R$ 18.500.000",
-    image: "/img/image5.jpeg",
-    description: "Espaçosa cobertura duplex com terraço privativo, design contemporâneo impressionante e vista panorâmica para o horizonte da cidade. Conta com ampla área gourmet e piscina aquecida exclusiva."
   }
 ];
 
@@ -113,7 +103,7 @@ export default function PropertyGrid() {
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 border border-white/10 rounded-t-[2.5rem] pointer-events-none" />
-              
+
               {/* Floating Price Tag */}
               <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg border border-white">
                 <p className="font-mono text-zinc-950 font-medium tracking-tight">
@@ -181,14 +171,14 @@ export default function PropertyGrid() {
                 {/* Right Side: Information & Action */}
                 <motion.div layoutId={`content-${activeProperty.id}`} className="p-8 md:p-12 md:w-1/2 flex flex-col items-start bg-white overflow-y-auto w-full">
                   <div className="w-full flex justify-end shrink-0 mb-4 md:mb-0">
-                    <button 
+                    <button
                       onClick={() => setActiveProperty(null)}
                       className="p-3 bg-zinc-50 border border-zinc-100 rounded-full text-zinc-500 hover:text-zinc-900 hover:border-zinc-200 transition-all flex items-center justify-center"
                     >
                       <X size={18} strokeWidth={1.5} />
                     </button>
                   </div>
-                  
+
                   <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-4 shrink-0">
                     {activeProperty.type}
                   </span>
@@ -205,7 +195,7 @@ export default function PropertyGrid() {
                         <span className="font-mono text-lg">{activeProperty.price}</span>
                       </div>
                     </div>
-                    
+
                     <div className="flex flex-col gap-1">
                       <span className="text-xs text-zinc-400 font-mono">Metragem</span>
                       <div className="flex items-center gap-2 text-zinc-950">
@@ -230,7 +220,7 @@ export default function PropertyGrid() {
                   </p>
 
                   <div className="mt-auto w-full pt-6 shrink-0">
-                    <MagneticButton 
+                    <MagneticButton
                       onClick={() => alert("Simulacão de Agendamento Aberto!")}
                       className="w-full sm:w-auto px-10 py-5 bg-zinc-50 border border-zinc-200 rounded-full text-sm hover:border-zinc-300"
                     >
