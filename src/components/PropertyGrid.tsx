@@ -20,13 +20,13 @@ interface Property {
 const properties: Property[] = [
   {
     id: "p1",
-    title: "Residencial Blanc",
+    title: "Corporate Tower",
     type: "Apartamento • Alto Padrão",
     area: 120,
     bedrooms: 3,
     price: "R$ 4.500.000",
     image: "/img/image2.jpg",
-    description: "Um conceito moderno de moradia, o Residencial Blanc oferece planta integrada com varanda gourmet, perfeita para jantares ao ar livre. Acabamentos em mármore travertino e suíte master com hidro."
+    description: "Um conceito moderno de moradia, o Corporate Tower oferece planta integrada com varanda gourmet, perfeita para jantares ao ar livre. Acabamentos em mármore travertino e suíte master com hidro."
   },
   {
     id: "p2",
@@ -40,7 +40,7 @@ const properties: Property[] = [
   },
   {
     id: "p3",
-    title: "Corporate Tower",
+    title: "Residencial Blanc",
     type: "Sala Comercial • Premium",
     area: 85,
     bedrooms: 0,
@@ -77,6 +77,16 @@ const properties: Property[] = [
     price: "R$ 6.200.000",
     image: "/img/image3.jpg",
     description: "O requinte francês reeditado para o Brasil. Arquitetura neoclássica que esconde uma casa altamente tecnológica por dentro. Conta com adega subterrânea, elevador e garagem subterrânea."
+  },
+  {
+    id: "p7",
+    title: "Cobertura Duplex",
+    type: "Cobertura Duplex",
+    area: 320,
+    bedrooms: 4,
+    price: "R$ 18.500.000",
+    image: "/img/image5.jpeg",
+    description: "Espaçosa cobertura duplex com terraço privativo, design contemporâneo impressionante e vista panorâmica para o horizonte da cidade. Conta com ampla área gourmet e piscina aquecida exclusiva."
   }
 ];
 
