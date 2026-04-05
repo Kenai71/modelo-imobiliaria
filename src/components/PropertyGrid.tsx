@@ -20,7 +20,7 @@ interface Property {
 const properties: Property[] = [
   {
     id: "p1",
-    title: "Residencial Blanc",
+    title: "Corporate Tower",
     type: "Apartamento • Alto Padrão",
     area: 120,
     bedrooms: 3,
@@ -40,7 +40,7 @@ const properties: Property[] = [
   },
   {
     id: "p3",
-    title: "Corporate Tower",
+    title: "Corporate Tower Residencial Blanc",
     type: "Sala Comercial • Premium",
     area: 85,
     bedrooms: 0,
@@ -65,7 +65,7 @@ const properties: Property[] = [
     area: 280,
     bedrooms: 4,
     price: "R$ 15.000.000",
-    image: "/img/image2.jpg",
+    image: "/img/image5.jpeg",
     description: "Uma vista definitiva de 360 graus para o parque principal da cidade. Esta cobertura duplex dispõe de piscina no último andar com borda de vidro, automação completa instalada e closet expansível duplo."
   },
   {
@@ -75,7 +75,7 @@ const properties: Property[] = [
     area: 310,
     bedrooms: 4,
     price: "R$ 6.200.000",
-    image: "/img/image3.jpg",
+    image: "/img/image6.jpg",
     description: "O requinte francês reeditado para o Brasil. Arquitetura neoclássica que esconde uma casa altamente tecnológica por dentro. Conta com adega subterrânea, elevador e garagem subterrânea."
   }
 ];
